@@ -288,7 +288,7 @@ require_once "hfc/header.php";
                         <div class="card-body text-center">
                             <h5 class="card-title">Solutions de voyage aérien</h5>
                             <p class="card-text">Nous proposons également des solutions complètes pour vos déplacements aériens à travers le Sénégal et l'Afrique de l'Ouest.</p>
-                            <a href="client.php" class="learn-more-btn">Consulter les tarifs</a>
+                            <a href="transport-aerien.php" class="learn-more-btn">Consulter les tarifs</a>
                         </div>
                     </div>
                 </div>

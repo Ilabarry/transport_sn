@@ -171,7 +171,7 @@ if(isset($_POST['inscrire']))
                     </div>
                     <div class="form-group">
                         <label for="inputAddress text-white">Ville d'origine</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="Région natale" name="ville_origine">
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Région d'origine" name="ville_origine">
                     </div>
                     <div class="form-group">
                         <label for="inputAddress2 text-white">Ville actuelle</label>

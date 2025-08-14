@@ -13,7 +13,7 @@ session_start();
 <!doctype html>
 <html lang="fr">
 <head>
-    <title>SenVoyage</title>
+    <title>SenTransport</title>
     <link rel="icon" type="image" href="senvoyagee.png">
     <!-- Meta tags -->
     <meta charset="utf-8">
@@ -93,7 +93,7 @@ session_start();
         <div class="container">
             <a class="navbar-brand" href="dashboard.php">
                 <img src="senvoyagee.png" alt="SenVoyage Logo" height="40" class="mr-2">
-                SenVoyage
+                SenTransport
             </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,14 +121,6 @@ session_start();
                                 <a class="nav-link voyage" href="conducteur.php"><i class="fas fa-users mr-1"></i> Conducteurs</a>
                             </li>
                         ';
-                        }
-
-                        if (isset($_SESSION['id_users']) && isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-
-                           echo '<li class="nav-item">
-                                    <a class="nav-link voyage" href="admin.php"><i class="fas fa-users mr-1"></i> Administration</a>
-                                </li>
-                             ';
                         }
                     ?>
                 </ul>

@@ -135,7 +135,7 @@ session_start();
             <div class="col-sm-8 col-md-6 col-lg-6 row_from p-5">
 
                 <div class="img">
-                    <h1 class="display-4 text-center mt-5"><span class="title_1">sén</span><span class="title_2">voy</span><span class="title_3">age</span></h1>
+                    <h1 class="display-4 text-center mt-5"><span class="title_1">sén</span><span class="title_2">Trans</span><span class="title_3">Port</span></h1>
                     <img src="../images/img-inscription.jpg" alt="" width="100%" height="200px">
                     
                     <h1 class="title-general_h2 text-center">CONNEXION</h1><br><br>

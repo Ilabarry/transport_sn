@@ -16,6 +16,27 @@ if (isset($_POST['reservation'])) {
     $depart = htmlspecialchars($_POST['depart']);
     $arriver = htmlspecialchars($_POST['arriver']);
     $date_time = htmlspecialchars($_POST['dateTime']);
+    // Conversion des dates
+        $now = new DateTime();
+        $date_reservation = new DateTime($date_time);
+
+        // Calcul de la différence
+        $interval = $now->diff($date_reservation);
+        $hoursDiff = ($interval->days * 24) + $interval->h;
+
+        // Vérification des règles
+        if ($date_reservation <= $now) {
+            die("<div class='alert alert-danger text-center mt-4' role='alert'>🚫 La date du voyage doit être dans le futur.</div>");
+        }
+
+        if ($hoursDiff < 12) {
+            die("<div class='alert alert-warning text-center mt-4' role='alert'>⏳ La réservation doit être faite au moins 12 heures avant le départ.</div>");
+        }
+
+        if ($hoursDiff > (4 * 24)) {
+            die("<div class='alert alert-info text-center mt-4' role='alert'>📅 La réservation ne peut pas être faite plus de 4 jours à l'avance.</div>");
+        }
+
     $passengers = intval($_POST['passengers']);
     $transport_type = htmlspecialchars($_POST['transport_type']);
     $additional_info = htmlspecialchars($_POST['additional_info'] ?? '');
@@ -293,8 +314,21 @@ if (isset($_POST['reservation'])) {
                 <div class="detail-item">
                     <span class="detail-icon"><i class="fas fa-money-bill-wave"></i></span>
                     <span class="detail-label">Prix estimé :</span>
-                    <span><?php echo number_format($monReservation['prix_estime'], 0, ',', ' '); ?> FCFA</span>
+                    <span><?php echo number_format($monReservation['prix_estime'] * $monReservation['passengers'], 0, ',', ' '); ?> FCFA</span>
                 </div>
+
+                <?php
+                    $id_reservation = (int)$monReservation['id'];
+                    $prix_estime = (int)($monReservation['prix_estime'] ?? 0);
+
+                    $payUrl = 'paiement/paiement.php?' . http_build_query([
+                        'id_reservation' => $id_reservation,
+                        'montant' => $prix_estime,
+                    ]);
+
+                    echo '<a href="'.$payUrl.'" class="btn btn-success">Procéder au paiement</a>';
+                ?>
+
                 
                 <?php if(!empty($monReservation['additional_info'])): ?>
                 <div class="detail-item">
@@ -351,23 +385,50 @@ if (isset($_POST['reservation'])) {
                     $mail->addAddress($email);
 
                     $mail->isHTML(true);
-                    $mail->Subject = 'Confirmation de réservation';
+                    $mail->Subject = 'Confirmation de réservation - Service de Transport';
                     $mail->Body = "
-                        <h2>Bonjour $prenom $nom</h2>
-                        <p>Votre réservation a été enregistrée avec succès.</p>
-                        <h3>Détails de la réservation :</h3>
-                        <ul>
-                            <li><strong>Départ :</strong> $depart</li>
-                            <li><strong>Destination :</strong> $arriver</li>
-                            <li><strong>Date et heure :</strong> ".date('d/m/Y H:i', strtotime($date_time))."</li>
-                            <li><strong>Nombre de passagers :</strong> $passengers</li>
-                            <li><strong>Type de transport :</strong> $transport_type</li>
-                            <li><strong>Prix estimé :</strong> ".number_format($prix_estime, 0, ',', ' ')." FCFA</li>
-                        </ul>
-                        ".(!empty($additional_info) ? "<p><strong>Informations supplémentaires :</strong> $additional_info</p>" : "")."
-                        <p>Merci d'avoir utilisé notre service.</p>
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                    <meta charset='UTF-8'>
+                    <style>
+                        body { font-family: Arial, sans-serif; background-color: #f8f9fa; color: #333; margin: 0; padding: 0; }
+                        .container { max-width: 600px; margin: auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+                        .header { background: linear-gradient(135deg, #2ecc71, #27ae60); padding: 20px; color: white; text-align: center; }
+                        .header h2 { margin: 0; }
+                        .content { padding: 20px; }
+                        .content h3 { color: #2c3e50; }
+                        .details { background: #f4f6f7; padding: 15px; border-radius: 5px; margin-top: 15px; }
+                        .details p { margin: 8px 0; }
+                        .footer { text-align: center; font-size: 12px; color: #7f8c8d; padding: 15px; background: #ecf0f1; }
+                    </style>
+                    </head>
+                    <body>
+                        <div class='container'>
+                            <div class='header'>
+                                <h2>Confirmation de votre réservation</h2>
+                            </div>
+                            <div class='content'>
+                                <p>Bonjour <strong>$prenom $nom</strong>,</p>
+                                <p>Votre réservation a été enregistrée avec succès.</p>
+                                <div class='details'>
+                                    <p><strong>Départ :</strong> $depart</p>
+                                    <p><strong>Destination :</strong> $arriver</p>
+                                    <p><strong>Date et heure :</strong> ".date('d/m/Y H:i', strtotime($date_time))."</p>
+                                    <p><strong>Passagers :</strong> $passengers</p>
+                                    <p><strong>Type de transport :</strong> $transport_type</p>
+                                    <p><strong>Prix estimé :</strong> ".number_format($prix_estime * $passengers, 0, ',', ' ')." FCFA</p>"
+                                    .(!empty($additional_info) ? "<p><strong>Infos supplémentaires :</strong> $additional_info</p>" : "")."
+                                </div>
+                                <p style='margin-top:15px;'>Merci d'avoir choisi notre service de transport.</p>
+                            </div>
+                            <div class='footer'>
+                                &copy; ".date('Y')." Service de Transport - Tous droits réservés
+                            </div>
+                        </div>
+                    </body>
+                    </html>
                     ";
-
                     $mail->send();
                 } catch (Exception $e) {
                     echo "<script>console.error('Erreur d'envoi d\'email: {$mail->ErrorInfo}')</script>";

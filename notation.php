@@ -49,21 +49,41 @@ if (isset($_REQUEST["del"])) {
     // Autoriser la suppression :
     // 1. L'utilisateur est admin OU
     // 2. C'est l'auteur du commentaire
-    if ($comment && ($comment['id_users'] == $users_id 
-                    || $user_role === 'admin' 
-                    || $user_role === 'conducteur')) {
-        $sql = $requete->prepare("DELETE FROM commentaire WHERE id = :id");
-        $sql->bindParam(':id', $del_id, PDO::PARAM_INT);
-        
-        if ($sql->execute()) {
-            echo "<script>alert('Commentaire supprimé avec succès')</script>";
-            echo "<script>window.location.href='notation.php'</script>";
-            exit();
+    // Traitement de la suppression
+if (isset($_REQUEST["del"])) {
+    $del_id = intval($_GET["del"]);
+    
+    // Vérification de l'autorisation de l'utilisateur
+    $check = $requete->prepare("SELECT id_users FROM commentaire WHERE id = :id");
+    $check->bindParam(':id', $del_id, PDO::PARAM_INT);
+    $check->execute();
+    $comment = $check->fetch(PDO::FETCH_ASSOC);
+    
+        if ($comment && ($comment['id_users'] == $users_id || $user_role === 'admin')) {
+            try {
+                // ÉTAPE 1: Supprimer d'abord toutes les réponses associées au commentaire
+                $delete_responses_sql = $requete->prepare("DELETE FROM reponses_commentaires WHERE comment_id = :comment_id");
+                $delete_responses_sql->bindParam(':comment_id', $del_id, PDO::PARAM_INT);
+                $delete_responses_sql->execute();
+
+                // ÉTAPE 2: Maintenant que les réponses sont supprimées, on peut supprimer le commentaire parent
+                $delete_comment_sql = $requete->prepare("DELETE FROM commentaire WHERE id = :id");
+                $delete_comment_sql->bindParam(':id', $del_id, PDO::PARAM_INT);
+                
+                if ($delete_comment_sql->execute()) {
+                    echo "<script>alert('Commentaire supprimé avec succè')</script>";
+                    echo "<script>window.location.href='notation.php'</script>";
+                    exit();
+                }
+            } catch (PDOException $e) {
+                // En cas d'échec de la suppression
+                error_log("Erreur lors de la suppression du commentaire (ID: $del_id): " . $e->getMessage());
+                echo "<script>alert('Erreur lors de la suppression : " . $e->getMessage() . "')</script>";
+            }
+        } else {
+            $message = "Action non autorisée. Seuls les admins ou l'auteur du commentaire peuvent supprimer.";
+            echo "<script>alert('$message')</script>";
         }
-    } else {
-        // Message plus explicite
-        $message = "Action non autorisée. Seuls les admins, conducteurs ou l'auteur du commentaire peuvent supprimer.";
-        echo "<script>alert('$message')</script>";
     }
 } 
 

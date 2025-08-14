@@ -7,7 +7,7 @@ require "hfc/config.php";
 //     header("Location: log/connexion.php");   
 //     exit();
 // }
-
+session_start();
 // Traitement du formulaire
 if (isset($_POST['submit'])) {
     // Récupération et validation des données
@@ -217,7 +217,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label for="conducteur" class="form-label">Conducteur</label>
                         <select class="form-control" id="conducteur" name="conducteur" required>
-                            <option value="">Sélectionnez un conducteur</option>
+                            <option value="">Sélectionnez le conducteur</option>
                             <?php
                             $event = $requete->prepare("SELECT * FROM users WHERE role = 'conducteur'");
                             $event->execute();
@@ -231,9 +231,9 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="conf-conduc" class="form-label">Confirmer le nom du conducteur</label>
+                        <label for="conf-conduc" class="form-label">Le nom du concerné(es)</label>
                         <input type="text" class="form-control" id="conf-conduc" 
-                               placeholder="Entrez le nom du conducteur" name="conf-conduc" required>
+                               placeholder="Entrez le nom du concerné" name="conf-conduc" required>
                     </div>
 
                     <div class="form-group">
