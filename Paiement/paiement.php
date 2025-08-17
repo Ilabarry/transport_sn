@@ -27,6 +27,7 @@ $montant_total = number_format((float)$reservation['prix_estime'] * $reservation
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paiement de votre réservation | HFC</title>
+    <link rel="icon" type="image" href="senvoyagee.png">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -164,9 +165,11 @@ $montant_total = number_format((float)$reservation['prix_estime'] * $reservation
     </style>
 </head>
 <body>
+    <a href="../profil.php" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> Retour au profil
+        </a>
     <div class="payment-container">
-        <div class="payment-header">
-            <a href="../profil.php">retour</a>
+        <div class="payment-header">           
             <h1 class="payment-title"><i class="fas fa-check-circle me-2"></i>Finalisez votre paiement</h1>
             <div class="reservation-id">Réservation #<?= htmlspecialchars($reservation['id']); ?></div>
         </div>
@@ -220,7 +223,7 @@ $montant_total = number_format((float)$reservation['prix_estime'] * $reservation
                 <p class="card-text">Paiement mobile instantané via l'application Wave. Transférez l'argent directement depuis votre compte Wave.</p>               
             </div>
             <div class="card-footer">
-                <a href="https://wave.sn/pay" target="_blank" class="btn btn-success btn-sm btn-block">Payer avec Wave</a>             
+                <a href="wave.php?id_reservation=<?= $reservation['id']; ?>" target="_blank" class="btn btn-success btn-sm btn-block">Payer avec Wave</a>             
             </div>
         </div>
     </div>
@@ -234,7 +237,7 @@ $montant_total = number_format((float)$reservation['prix_estime'] * $reservation
                 <p class="card-text">Paiement sécurisé via votre compte Orange Money. Confirmation par code USSD.</p>
             </div>
             <div class="card-footer">
-                <a href="https://orangemoney.sn" target="_blank" class="btn btn-success btn-sm btn-block">Payer avec Orange</a>                
+                <a href="orange.php?id_reservation=<?= $reservation['id']; ?>" target="_blank" class="btn btn-success btn-sm btn-block">Payer avec Orange</a>                
             </div>
         </div>
     </div>
@@ -248,7 +251,7 @@ $montant_total = number_format((float)$reservation['prix_estime'] * $reservation
                 <p class="card-text">Solution de paiement numérique via l'application Yassir. Simple et rapide.</p>                
             </div>
             <div class="card-footer">
-                <a href="https://yassir.com/pay" target="_blank" class="btn btn-success btn-sm btn-block">Payer avec Yassir</a>
+                <a href="yassir.php?id_reservation=<?= $reservation['id']; ?>" target="_blank" class="btn btn-success btn-sm btn-block">Payer avec Yassir</a>
             </div>
         </div>
     </div>

@@ -2,13 +2,8 @@
 require "config.php";
 session_start();
 
-// if (!isset($_SESSION['id_users'])) {
-//     header("Location: log/connexion.php");
-//     exit(); 
-// }
-
 // Récupérer l'ID de l'utilisateur depuis la session
-// $users_id = $_SESSION['id_users'];
+$users_id = $_SESSION['id_users'] ?? null ;
 ?>
 <!doctype html>
 <html lang="fr">
@@ -73,8 +68,37 @@ session_start();
             font-size: 1.5rem;
             color: white;
         }
-        
-        @media (max-width: 992px) {
+        .Logo {
+            width: 140px;
+            height: 50px;
+            margin-left:-90px;
+            object-fit: cover;
+        }
+
+        /* Le texte SenTransport à côté du logo */
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* RESPONSIVE : max 700px */
+        @media (max-width: 700px) {
+            .Logo {
+                width: 100px;
+                height: 45px;
+            }
+
+            .brand-text {
+                font-size: 1.1rem;
+            }
+
+            .navbar-brand {
+                margin-left: 0 !important;
+            }
+        }
+
+        /* @media (max-width: 992px) {
             .navbar-collapse {
                 background-color: #2ecc71;
                 padding: 15px;
@@ -85,16 +109,18 @@ session_start();
             .nav-item {
                 margin: 5px 0;
             }
-        }
+        } */
+
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-success">
         <div class="container">
-            <a class="navbar-brand" href="dashboard.php">
-                <img src="senvoyagee.png" alt="SenVoyage Logo" height="40" class="mr-2">
-                SenTransport
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
+                <img src="logoo.png" alt="SenVoyage Logo" class="Logo mr-1">
+                <span class="brand-text">SenTransport</span>
             </a>
+
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -125,23 +151,31 @@ session_start();
                     ?>
                 </ul>
 
+                
                 <div class="user-profile">
                     <?php if (isset($_SESSION['id_users'])): ?>
-                        <a class="nav-link" href="profil.php">
-                            <i class="fas fa-user-circle"></i>
-                            <span class="user-name">
-                                <?php
-                                $result = $requete->prepare('SELECT nom FROM users WHERE id = :id');
-                                $result->bindParam(':id', $users_id, PDO::PARAM_INT);
-                                $result->execute();
-                                $profil = $result->fetch(PDO::FETCH_ASSOC);
-                                
-                                if ($profil) {
-                                    echo htmlspecialchars($profil["nom"]);
-                                }
-                                ?>
-                            </span>
-                        </a>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="dropdown">
+                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user-circle mr-1"></i>
+                                    <?php
+                                        $result = $requete->prepare('SELECT nom FROM users WHERE id = :id');
+                                        $result->bindParam(':id', $users_id, PDO::PARAM_INT);
+                                        $result->execute();
+                                        $profil = $result->fetch(PDO::FETCH_ASSOC);
+                                        
+                                        if ($profil) {
+                                            echo htmlspecialchars($profil["nom"]);
+                                        }
+                                        ?>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right bg-success" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="profil.php">Profil</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="logout.php">Déconnexion</a>
+                                </div>
+                            </div>
+                        </div>
                     <?php else: ?>
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item"><a class="nav-link voyage" href="log/connexion.php"><i class="fas fa-sign-in-alt me-2"></i> Connexion</a></li>
@@ -154,25 +188,3 @@ session_start();
             </div>
         </div>
     </nav>
-
-    <!-- Scripts JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-        
-        // Ajoute une classe lorsque l'utilisateur scroll
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                document.querySelector('header').style.height = '60px';
-                document.querySelector('header').style.boxShadow = '0 2px 15px rgba(0,0,0,0.2)';
-            } else {
-                document.querySelector('header').style.height = '70px';
-                document.querySelector('header').style.boxShadow = 'none';
-            }
-        });
-    </script>
-</body>
-</html>

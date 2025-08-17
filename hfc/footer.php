@@ -269,8 +269,17 @@
     </div>
 </footer>
 
+ <!-- Scripts JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 <!-- Scripts -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+</body>
+</html>
 <script>
 // Initialisation AOS avec gestion d'erreur
 document.addEventListener('DOMContentLoaded', function() {
@@ -310,4 +319,17 @@ function mobileFallback() {
 
 window.addEventListener('resize', mobileFallback);
 mobileFallback();
+
+AOS.init();
+        
+        // Ajoute une classe lorsque l'utilisateur scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('header').style.height = '60px';
+                document.querySelector('header').style.boxShadow = '0 2px 15px rgba(0,0,0,0.2)';
+            } else {
+                document.querySelector('header').style.height = '70px';
+                document.querySelector('header').style.boxShadow = 'none';
+            }
+        });
 </script>

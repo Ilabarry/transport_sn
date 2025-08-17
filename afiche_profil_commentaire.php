@@ -1,13 +1,13 @@
 <?php
 require_once 'hfc/config.php';
+require_once "hfc/header.php";
 
 // Vérifier si l'utilisateur est connecté
-// if (!isset($_SESSION['id_users'])) {
-//     header("Location: log/connexion.php");
-//     exit();
-// }
+if (!isset($_SESSION['id_users'])) {
+    header("Location: log/connexion.php");
+    exit();
+}
 
-require_once "hfc/header.php";
 // Récupérer l'ID de l'utilisateur depuis l'URL
 if (!isset($_GET['id'])) {
     echo "<div class='container text-center py-5'>
@@ -64,14 +64,7 @@ $result->execute();
 $commentaires = $result->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <title>Commentaires de <?php echo htmlspecialchars($prenom); ?></title>
-    <link rel="icon" type="image" href="senvoyagee.png">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <style>
         * {
             padding: 0;
@@ -214,10 +207,7 @@ $commentaires = $result->fetchAll(PDO::FETCH_ASSOC);
             }
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+
     
     <div class="profile-header">
         <a href="profil.php" class="back-btn">
@@ -288,9 +278,7 @@ $commentaires = $result->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
     </div>
 
-    <?php require_once "hfc/footer.php"; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Animation pour faire apparaître les commentaires progressivement
         document.addEventListener('DOMContentLoaded', function() {
@@ -307,5 +295,4 @@ $commentaires = $result->fetchAll(PDO::FETCH_ASSOC);
             });
         });
     </script>
-</body>
-</html>
+    <?php require_once "hfc/footer.php"; ?>

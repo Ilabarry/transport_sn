@@ -51,12 +51,6 @@ if (isset($_POST['conducteur'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter mes informations</title>
     <style>
         * {
             padding: 0;
@@ -119,6 +113,7 @@ if (isset($_POST['conducteur'])) {
         }
         .form-control {
             width: 100%;
+            height: 50px;
             padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 6px;
@@ -183,11 +178,6 @@ if (isset($_POST['conducteur'])) {
             }
         }
     </style>
-    <link rel="icon" type="image" href="senvoyagee.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
 
     <div class="header-section">
         <img src="images/img_conduct.jpg" alt="Commentaires" class="header-image" data-aos="fade" data-aos-duration="1000">
@@ -265,11 +255,8 @@ if (isset($_POST['conducteur'])) {
         </div>
     </div>
 
-    <div style="height:100px"></div>
+    <div style="height:50px"></div>
     
-    <?php require_once "hfc/footer.php"; ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Animation pour le formulaire
         document.addEventListener('DOMContentLoaded', function() {
@@ -284,5 +271,4 @@ if (isset($_POST['conducteur'])) {
             }, 200);
         });
     </script>
-</body>
-</html>
+    <?php require_once "hfc/footer.php"; ?>

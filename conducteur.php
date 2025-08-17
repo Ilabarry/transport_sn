@@ -21,9 +21,6 @@ $result = $requete->prepare('SELECT conducteur.*, users.prenom, users.nom, users
 $result->execute();
 $conducteur = $result->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
     <style>
         * {
             padding: 0;
@@ -52,7 +49,7 @@ $conducteur = $result->fetchAll(PDO::FETCH_ASSOC);
             left: 0;
             width: 100%;
             z-index: -1;
-            height: 247px;
+            height: 257px;
             object-fit: cover;
             filter: brightness(0.7);
         }
@@ -152,11 +149,7 @@ $conducteur = $result->fetchAll(PDO::FETCH_ASSOC);
             margin-bottom: 20px;
         }
     </style>
-    <link rel="icon" type="image" href="senvoyagee.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+
     <img class="img_header" src="images/img_conduct.jpg" alt="Bannière conducteurs">
     <div class="jumbotro acceuil"><br>
         <div class="container text-center pt-4">
@@ -190,10 +183,8 @@ $conducteur = $result->fetchAll(PDO::FETCH_ASSOC);
 
     </div>
 
-    <?php require_once "hfc/footer.php"; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+<script>
         // Animation au chargement de la page
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.card-conducteur');
@@ -220,5 +211,4 @@ $conducteur = $result->fetchAll(PDO::FETCH_ASSOC);
         });
 
     </script>
-</body>
-</html>
+    <?php require_once "hfc/footer.php"; ?>

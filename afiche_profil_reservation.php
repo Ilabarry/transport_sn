@@ -62,17 +62,6 @@ $result->execute();
 $reservations = $result->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Réservations de <?php echo htmlspecialchars($prenom); ?></title>
-    <link rel="icon" type="image/png" href="senvoyagee.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <style>
         body { font-family: 'Roboto', sans-serif; background-color: #f8f9fa; color: #333; }
         .profile-header { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)); height: 250px; display: flex; align-items: center; justify-content: center; text-align: center; color: white; position: relative; margin-bottom: 30px; }
@@ -104,8 +93,7 @@ $reservations = $result->fetchAll(PDO::FETCH_ASSOC);
             .detail-label { min-width: auto; margin-bottom: 5px; }
         }
     </style>
-</head>
-<body>
+
 <div class="profile-header">
     <a href="profil.php" class="back-btn"><i class="fas fa-arrow-left"></i></a>
     <div>
@@ -160,10 +148,22 @@ $reservations = $result->fetchAll(PDO::FETCH_ASSOC);
                         </div>
 
                         <?php
-                        $id_reservation = $reservation['id'];
-                        $prix_estime = $reservation['prix'] ?? 0;
+                            $id_reservation = (int)$reservation['id'];
+                            $prix_estime = (int)($reservation['prix_estime'] ?? 0);
+                            $payUrl = 'paiement/paiement.php?' . http_build_query([
+                                'id_reservation' => $id_reservation,
+                                'montant' => $prix_estime,
+                            ]);
+
+                            // Vérification du statut de paiement
+                            if (!isset($reservation['status_paiement']) || $reservation['status_paiement'] !== 'payé') {
+                                echo '<a href="'.$payUrl.'" class="btn btn-success">Procéder au paiement</a>';
+                            } else {
+                                echo '<div class="alert alert-success mt-3 text-center">✅ Paiement déjà effectué</div>';
+                            }
                         ?>
-                        <a href="paiement/paiement.php?id_reservation=<?php echo $id_reservation; ?>&montant=<?php echo $prix_estime; ?>" class="btn btn-success">Procéder au paiement</a>
+
+
 
                         <div class="reservation-actions">
                             <a href="update_reservation.php?id=<?php echo $reservation['id']; ?>" class="edit-btn action-btn" title="Modifier"><i class="fas fa-edit"></i></a>
@@ -183,8 +183,7 @@ $reservations = $result->fetchAll(PDO::FETCH_ASSOC);
     <?php endif; ?>
 </div>
 
-<?php require_once "hfc/footer.php"; ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.reservation-card');
@@ -196,5 +195,4 @@ $reservations = $result->fetchAll(PDO::FETCH_ASSOC);
         });
     });
 </script>
-</body>
-</html>
+<?php require_once "hfc/footer.php"; ?>

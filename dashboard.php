@@ -1,6 +1,12 @@
 <?php
 require_once 'hfc/config.php';
 session_start();
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['id_users'])) {
+    header("Location: log/connexion.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,6 +15,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord - Transport</title>
+    <link rel="icon" type="image" href="senvoyagee.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- AOS Animation CSS -->
@@ -231,20 +238,21 @@ session_start();
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
                         <div class="card text-white bg-warning mb-3 h-100">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h5 class="card-title">Revenus éstimé</h5>
-                                        <h2 class="card-text">
+                                        <h5>Commentaires</h5>
+                                        <h2>
                                             <?php 
-                                            $stmt = $requete->query("SELECT SUM(prix_estime) FROM reservation");
-                                            echo number_format($stmt->fetchColumn(), 2) . ' €'; 
+                                            $stmt = $requete->query("SELECT COUNT(*) FROM commentaire");
+                                            echo $stmt->fetchColumn(); 
                                             ?>
                                         </h2>
                                     </div>
-                                    <i class="fas fa-euro-sign card-icon"></i>
+                                    <i class="fas fa-comments"></i>
                                 </div>
                             </div>
                         </div>

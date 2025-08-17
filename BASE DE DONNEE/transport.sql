@@ -21,6 +21,8 @@ CREATE TABLE reservation (
     transport_type VARCHAR(50) NOT NULL,
     additional_info TEXT,
     prix_estime DECIMAL(10, 2) NOT NULL,
+    status_paiement ENUM('non payé', 'payé') NOT NULL DEFAULT 'non payé',
+    numero_telephone VARCHAR(20) NULL,
     id_users INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_users) REFERENCES users(id)

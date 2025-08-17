@@ -1,13 +1,14 @@
 <?php
-
+ob_start();
 require "hfc/config.php";
+ require_once "hfc/header.php";
 
 // Vérification de la connexion avant tout affichage
-// if (!isset($_SESSION["email"])) {  
-//     header("Location: log/connexion.php");   
-//     exit();
-// }
-session_start();
+if (!isset($_SESSION["email"])) {  
+    header("Location: log/connexion.php");   
+    exit();
+}
+
 // Traitement du formulaire
 if (isset($_POST['submit'])) {
     // Récupération et validation des données
@@ -57,7 +58,6 @@ if (isset($_POST['submit'])) {
         exit();
     }
 }
- require_once "hfc/header.php";
 
 ?>
 

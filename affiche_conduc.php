@@ -1,6 +1,12 @@
 <?php
 require_once 'hfc/config.php';
+require_once "hfc/header.php";
 
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['id_users'])) {
+    header("Location: log/connexion.php");
+    exit();
+}
 
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -14,9 +20,7 @@ if(isset($_GET['id'])) {
 
     if ($conducteur) { 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
+
     <style>
         * {
             padding: 0;
@@ -125,13 +129,8 @@ if(isset($_GET['id'])) {
             }
         }
     </style>
-    <link rel="icon" type="image" href="senvoyagee.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <?php require_once "hfc/header.php"; ?>
-    
+
+
     <div class="conducteur-header">
         <div>
             <h1 class="conducteur-title">PROFIL CONDUCTEUR</h1>
@@ -173,11 +172,8 @@ if(isset($_GET['id'])) {
         </div>
     </div>
 
-    <div style="height:100px"></div>
+    <div style="height:50px"></div>
     
-    <?php require_once "hfc/footer.php"; ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Animation pour faire apparaître progressivement la carte
         document.addEventListener('DOMContentLoaded', function() {
@@ -192,8 +188,8 @@ if(isset($_GET['id'])) {
             }, 100);
         });
     </script>
-</body>
-</html>
+    <?php require_once "hfc/footer.php"; ?>
+
 <?php
     } else {
         echo "<div class='container text-center py-5'>

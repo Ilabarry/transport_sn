@@ -33,7 +33,7 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 .jumbotron {
-    background: url('images/img_reservation.jpg') center/cover no-repeat;
+    /* background: url('images/img_reservation.jpg') center/cover no-repeat; */
     height: 270px;
     position: relative;
     margin-bottom: 0;
@@ -47,6 +47,28 @@ body {
 .jumbotron .container {
     position: relative;
     z-index: 1;
+}
+.display-4 {
+    padding: 5px 20px;
+    border-radius: 0 50% 0 50%;
+    color: #fff;
+    font-weight: 900;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+.acceuil {
+    background: rgba(0, 0, 0, 0.19);
+    height: 182px;
+    position: relative;
+}
+.img_header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    height: 257px;
+    object-fit: cover;
+    filter: brightness(0.7);
 }
 .title-general {
     background: #2ecc71;
@@ -79,7 +101,8 @@ iframe {
 }
 </style>
 
-<div class="jumbotron d-flex align-items-center justify-content-center text-white text-center">
+<img class="img_header" src="images/img_reservation.jpg" alt="Bannière conducteurs">
+<div class="jumbotron d-flex align-items-center justify-content-center text-white text-center acceuil">
     <div class="container">
         <h1 class="display-4">RÉSERVER UN TRAJET</h1>
         <p class="lead">Voyagez en toute sécurité avec SéneTransport</p>

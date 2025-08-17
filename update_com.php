@@ -1,11 +1,12 @@
 <?php
 require "hfc/config.php";
+require_once "hfc/header.php";
 
 // Vérification de la connexion
-// if(!isset($_SESSION["email"])) {  
-//     header("location:log/connexion.php");   
-//     exit();
-// }
+if(!isset($_SESSION["email"])) {  
+    header("location:log/connexion.php");   
+    exit();
+}
 
 // Traitement de la mise à jour
 if(isset($_POST['update'])) {
@@ -30,8 +31,6 @@ if(isset($_POST['update'])) {
         $error_message = "Une erreur est survenue lors de la modification";
     }
 }
-
-require_once "hfc/header.php";
 
 ?>
 

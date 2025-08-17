@@ -1,18 +1,12 @@
-<?php require "hfc/config.php"; ?>
-    <?php require_once "hfc/header.php"; ?>
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SénTransport - Nos Tarifs</title>
-    <link rel="icon" type="image" href="senvoyagee.png">
-    
-    <!-- CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+<?php require "hfc/config.php";
+ require_once "hfc/header.php";
+// Vérification de la connexion
+if(!isset($_SESSION["email"])) {  
+    header("location:log/connexion.php");   
+    exit();
+}
+?>
+
     <style>
         :root {
             --primary-color: #2ecc71;
@@ -402,10 +396,6 @@
         </div>
     </section>
 
-    <?php require_once "hfc/footer.php"; ?>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
             duration: 800,
@@ -413,5 +403,4 @@
             once: true
         });
     </script>
-</body>
-</html>
+    <?php require_once "hfc/footer.php"; ?>

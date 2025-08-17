@@ -1,12 +1,12 @@
 <?php
 require_once 'hfc/config.php';
-// session_start();
-// ob_start();
-// Vérification des droits d'admin (décommentez cette section)
-// if (!isset($_SESSION['id_users']) || $_SESSION['role'] !== 'admin') {
-//     header("Location: login.php");
-//     exit();
-// }
+include 'hfc/header.php';
+
+//Vérification des droits d'admin (décommentez cette section)
+if (!isset($_SESSION['id_users']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit();
+}
 
 // Gestion des suppressions
 if (isset($_GET['del']) && isset($_GET['type'])) {
@@ -65,6 +65,7 @@ if (isset($_GET['del']) && isset($_GET['type'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration - Transport App</title>
+    <link rel="icon" type="image" href="senvoyagee.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -107,7 +108,6 @@ if (isset($_GET['del']) && isset($_GET['type'])) {
     </style>
 </head>
 <body>
-    <?php include 'hfc/header.php'; ?>
 
     <!-- messages de success -->
     <?php if (isset($_SESSION['success'])): ?>
@@ -171,11 +171,11 @@ if (isset($_GET['del']) && isset($_GET['type'])) {
             <div class="col-md-3">
                 <div class="card stat-card text-white bg-warning">
                     <div class="card-body text-center">
-                        <h5><i class="fas fa-comments"></i> Commentaires</h5>
-                        <h3>
+                        <h5 class="card-title"><i class="fas fa-euro-sign card-icon"></i> Revenus éstimé</h5>
+                        <h3 class="card-text">
                             <?php 
-                            $stmt = $requete->query("SELECT COUNT(*) FROM commentaire");
-                            echo $stmt->fetchColumn(); 
+                                $stmt = $requete->query("SELECT SUM(prix_estime) FROM reservation");
+                                echo number_format($stmt->fetchColumn(), 2) . ' fcfa'; 
                             ?>
                         </h3>
                     </div>

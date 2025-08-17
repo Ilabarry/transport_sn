@@ -156,9 +156,6 @@ if ($selected_comment_id) {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
     <style>
                * {
             padding: 0;
@@ -187,7 +184,7 @@ if ($selected_comment_id) {
             left: 0;
             width: 100%;
             z-index: -1;
-            height: 247px;
+            height: 257px;
             object-fit: cover;
             filter: brightness(0.7);
         }
@@ -307,8 +304,7 @@ if ($selected_comment_id) {
             background-color: rgba(243, 156, 18, 0.05);
         }
     </style>
-</head>
-<body>
+
     <img class="img_header" src="images/img_notation.jpg" alt="Bannière commentaires">
     <div class="jumbotro acceuil"><br>
         <div class="container text-center pt-4">
@@ -568,5 +564,3 @@ $(document).ready(function() {
     updateUnreadCount();
 });
 </script>
-</body>
-</html>

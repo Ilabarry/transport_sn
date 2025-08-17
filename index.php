@@ -20,7 +20,7 @@ require_once "hfc/header.php";
         
         .hero-section {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/image_acceuil.jpg');
-            height: 80vh;
+            height: 70vh;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -148,6 +148,9 @@ require_once "hfc/header.php";
             font-weight: 600;
             color: var(--dark-color);
         }
+        .about-img{
+            height:470px;
+        }
 
         .about-section h5 {
             color: var(--dark-color);
@@ -171,8 +174,6 @@ require_once "hfc/header.php";
             }
         }
     </style>
-</head>
-<body>
     
     <!-- Hero Section -->
     <section class="hero-section">
@@ -188,44 +189,41 @@ require_once "hfc/header.php";
     
     <!-- About Section -->
     <section class="about-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-                <img src="images/img_propos.jpg" alt="À propos de SénTransport" height="800px" class="img-fluid rounded shadow">
-            </div>
-            <div class="col-lg-6" data-aos="fade-left">
-                <h2 class="section-title text-center text-lg-start">Qui sommes-nous ?</h2>
-                <p class="lead">SénTransport - Leader du transport terrestre et aérien au Sénégal depuis 2010</p>
-                
-                <p>Fondée en 2010, SénTransport s'est rapidement imposée comme la référence en matière de transport de personnes au Sénégal. Notre mission est de révolutionner l'expérience du voyage en offrant des solutions de mobilité sécurisées, confortables et accessibles à tous.</p>
-                
-                <!-- <p>Avec une flotte moderne de plus de 150 véhicules (bus, minibus et voitures 7 places) et des partenariats avec les principales compagnies aériennes régionales, nous couvrons l'ensemble du territoire sénégalais et les principales destinations en Afrique de l'Ouest.</p> -->
-                
-                <h5 class="mt-4">Nos engagements :</h5>
-                <ul class="list-unstyled">
-                    <li><i class="fas fa-check-circle text-primary me-2"></i> Sécurité renforcée avec des véhicules contrôlés quotidiennement</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i> Confort optimal avec des équipements haut de gamme</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i> Ponctualité garantie avec 98% de nos trajets à l'heure</li>
-                    <li><i class="fas fa-check-circle text-primary me-2"></i> Prix transparents sans surprise</li>
-                </ul>
-                
-                <p>Chaque année, ce sont plus de 500 000 voyageurs qui nous font confiance pour leurs déplacements professionnels, familiaux ou touristiques. Notre équipe de 200 collaborateurs passionnés est à votre service 24h/24 et 7j/7.</p>
-                
-                <div class="d-flex align-items-center mt-4">
-                    <div class="me-3">
-                        <i class="fas fa-phone-alt fa-2x text-primary"></i>
-                    </div>
-                    <div>
-                        <h6 class="mb-0">Service client</h6>
-                        <p class="mb-0">+221 33 800 00 00 (24h/24)</p>
-                    </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                    <img src="images/img_propos.jpg" alt="À propos de SénTransport" class="img-fluid about-img rounded shadow">
                 </div>
-                
-                <p class="text-muted mt-3">Dernière mise à jour : <?php echo date('d/m/Y'); ?></p>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h2 class="section-title text-center text-lg-start">Qui sommes-nous ?</h2>
+                    <p class="lead">SénTransport – Votre partenaire de confiance pour voyager partout au Sénégal.</p>
+                    
+                    <p>Depuis 2010, SénTransport s’impose comme un acteur majeur du transport terrestre et aérien au Sénégal. Nous proposons des solutions fiables, accessibles et confortables, adaptées aussi bien aux déplacements professionnels que personnels.</p>
+                    
+                    <h5 class="mt-4">Nos engagements :</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Sécurité et contrôle quotidien de nos véhicules</li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Confort optimal et services modernes</li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Ponctualité garantie</li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Tarifs transparents et compétitifs</li>
+                    </ul>
+
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="me-3">
+                            <i class="fas fa-phone-alt fa-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">Service client</h6>
+                            <p class="mb-0">+221 33 800 00 00 (24h/24)</p>
+                        </div>
+                    </div>
+
+                    <p class="text-muted mt-3">Dernière mise à jour : <?php echo date('d/m/Y'); ?></p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
     
     <!-- Transport Section -->
     <section class="transport-section">
@@ -297,8 +295,6 @@ require_once "hfc/header.php";
     </section>
     
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
             duration: 800,
@@ -308,5 +304,3 @@ require_once "hfc/header.php";
     </script>
     
     <?php require_once "hfc/footer.php"; ?>
-</body>
-</html>

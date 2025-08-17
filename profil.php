@@ -33,12 +33,7 @@ $reservation_count->execute();
 $reservation_count = $reservation_count->fetchColumn();
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Profil</title>
+
     <style>
         * {
             padding: 0;
@@ -162,10 +157,7 @@ $reservation_count = $reservation_count->fetchColumn();
             }
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+
     <br><br>
     <div class="profile-header text-center">
         <div class="container">
@@ -260,10 +252,8 @@ $reservation_count = $reservation_count->fetchColumn();
         </div>
     </div>
 
-    <?php require_once "hfc/footer.php"; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+<script>
         function confirmLogout() {
             if (confirm("Vous serez déconnecté et devrez vous reconnecter pour accéder à vos informations. Continuer ?")) {
                 window.location.href = "logout.php";
@@ -285,5 +275,4 @@ $reservation_count = $reservation_count->fetchColumn();
             });
         });
     </script>
-</body>
-</html>
+    <?php require_once "hfc/footer.php"; ?>

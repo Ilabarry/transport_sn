@@ -152,7 +152,7 @@ if (isset($_POST['update'])) {
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="mes_reservations.php" class="btn btn-secondary">Annuler</a>
+                    <a href="reservation.php" class="btn btn-secondary">Annuler</a>
                     <button type="submit" name="update" class="btn btn-success">Mettre à jour</button>
                 </div>
             </form>
